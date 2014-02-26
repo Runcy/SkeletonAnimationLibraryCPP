@@ -206,7 +206,7 @@ namespace dragonBones
 			_isPlaying = true;
 			
 			//
-			fadeInTime = fadeInTime < 0?(animationData->fadeInTime < 0?0.3:animationData->fadeInTime):fadeInTime;
+			fadeInTime = fadeInTime < 0?(animationData->fadeInTime < 0?0.3f:animationData->fadeInTime):fadeInTime;
 			
 			Number durationScale;
 			if(duration < 0)
@@ -287,7 +287,7 @@ namespace dragonBones
 			_lastAnimationState = animationState->borrowObject();
 			_lastAnimationState->group = group;
 			_lastAnimationState->tweenEnabled = tweenEnabled;
-			_lastAnimationState->fadeIn(_armature, animationData, fadeInTime, 1 / durationScale, loop, layer, displayControl, pauseFadeIn);
+			_lastAnimationState->fadeIn(_armature, animationData, fadeInTime, 1 / durationScale, (int)loop, layer, displayControl, pauseFadeIn);
 			
 			addState(_lastAnimationState);
 			

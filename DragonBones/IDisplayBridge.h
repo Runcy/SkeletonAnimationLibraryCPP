@@ -1,6 +1,7 @@
 #pragma once
 #include "preDB.h"
 #include "DBTransform.h"
+#include "Matrix.h"
 namespace dragonBones
 {
 	/**

@@ -6,19 +6,19 @@
 namespace dragonBones
 {	
 
-	TextureAtlasData* XMLDataParser::parseTextureAtlasData(const tinyxml2::XMLElement *rootElement, Number scale)
+	TextureAtlasData* XMLDataParser::parseTextureAtlasData(const dragonBones::XMLElement *rootElement, Number scale)
 	{
 		TextureAtlasData* textureAtlasData = new TextureAtlasData();
 		textureAtlasData->name = rootElement->Attribute(ConstValues::A_NAME.c_str());
 		textureAtlasData->imagePath = rootElement->Attribute(ConstValues::A_IMAGE_PATH.c_str());
-		for(const tinyxml2::XMLElement* subTextureXML = rootElement->FirstChildElement(ConstValues::SUB_TEXTURE.c_str()) ; subTextureXML ; subTextureXML = subTextureXML->NextSiblingElement(ConstValues::SUB_TEXTURE.c_str()))
+		for(const dragonBones::XMLElement* subTextureXML = rootElement->FirstChildElement(ConstValues::SUB_TEXTURE.c_str()) ; subTextureXML ; subTextureXML = subTextureXML->NextSiblingElement(ConstValues::SUB_TEXTURE.c_str()))
 		{
 			String subTextureName = subTextureXML->Attribute(ConstValues::A_NAME.c_str());
 			Rectangle subTextureData;
-			subTextureData.x = int(subTextureXML->IntAttribute(ConstValues::A_X.c_str())) / scale;
-			subTextureData.y = int(subTextureXML->IntAttribute(ConstValues::A_Y.c_str())) / scale;
-			subTextureData.width = int(subTextureXML->IntAttribute(ConstValues::A_WIDTH.c_str())) / scale;
-			subTextureData.height = int(subTextureXML->IntAttribute(ConstValues::A_HEIGHT.c_str())) / scale;
+			subTextureData.x = int(subTextureXML->IntAttribute(ConstValues::A_X.c_str()) / scale);
+			subTextureData.y = int(subTextureXML->IntAttribute(ConstValues::A_Y.c_str()) / scale);
+			subTextureData.width = int(subTextureXML->IntAttribute(ConstValues::A_WIDTH.c_str()) / scale);
+			subTextureData.height = int(subTextureXML->IntAttribute(ConstValues::A_HEIGHT.c_str()) / scale);
 
 			textureAtlasData->addRect(subTextureName , subTextureData);
 		}
@@ -31,7 +31,7 @@ namespace dragonBones
 	* @param	xml The SkeletonData xml to parse.
 	* @return A SkeletonData instance.
 	*/
-	SkeletonData *XMLDataParser::parseSkeletonData(const tinyxml2::XMLElement *rootElement)
+	SkeletonData *XMLDataParser::parseSkeletonData(const dragonBones::XMLElement *rootElement)
 	{
 		String version = rootElement->Attribute(ConstValues::A_VERSION.c_str());
 		if(version != DragonBones::DATA_VERSION)
@@ -43,7 +43,7 @@ namespace dragonBones
 
 		SkeletonData *data = new SkeletonData();
 		data->name = rootElement->Attribute(ConstValues::A_NAME.c_str());
-		for(const tinyxml2::XMLElement* armatureXML = rootElement->FirstChildElement(ConstValues::ARMATURE.c_str()) ; armatureXML ; armatureXML = armatureXML->NextSiblingElement(ConstValues::ARMATURE.c_str()))
+		for(const dragonBones::XMLElement* armatureXML = rootElement->FirstChildElement(ConstValues::ARMATURE.c_str()) ; armatureXML ; armatureXML = armatureXML->NextSiblingElement(ConstValues::ARMATURE.c_str()))
 		{
 			data->addArmatureData(parseArmatureData(armatureXML, data, frameRate));
 		}
@@ -51,17 +51,17 @@ namespace dragonBones
 		return data;
 	}
 
-	ArmatureData *XMLDataParser::parseArmatureData(const tinyxml2::XMLElement *armatureXML, SkeletonData *data, uint frameRate)
+	ArmatureData *XMLDataParser::parseArmatureData(const dragonBones::XMLElement *armatureXML, SkeletonData *data, uint frameRate)
 	{
 		ArmatureData *armatureData = new ArmatureData();
 		armatureData->name = armatureXML->Attribute(ConstValues::A_NAME.c_str());
 
-		for(const tinyxml2::XMLElement* boneXML = armatureXML->FirstChildElement(ConstValues::BONE.c_str()) ; boneXML ; boneXML = boneXML->NextSiblingElement(ConstValues::BONE.c_str()))
+		for(const dragonBones::XMLElement* boneXML = armatureXML->FirstChildElement(ConstValues::BONE.c_str()) ; boneXML ; boneXML = boneXML->NextSiblingElement(ConstValues::BONE.c_str()))
 		{
 			armatureData->addBoneData(parseBoneData(boneXML));
 		}
 
-		for(const tinyxml2::XMLElement* skinXML = armatureXML->FirstChildElement(ConstValues::SKIN.c_str()) ; skinXML ; skinXML = skinXML->NextSiblingElement(ConstValues::SKIN.c_str()))
+		for(const dragonBones::XMLElement* skinXML = armatureXML->FirstChildElement(ConstValues::SKIN.c_str()) ; skinXML ; skinXML = skinXML->NextSiblingElement(ConstValues::SKIN.c_str()))
 		{
 			armatureData->addSkinData(parseSkinData(skinXML, data));
 		}
@@ -69,7 +69,7 @@ namespace dragonBones
 		DBDataUtil::transformArmatureData(armatureData);
 		armatureData->sortBoneDataList();
 
-		for(const tinyxml2::XMLElement* animationXML = armatureXML->FirstChildElement(ConstValues::ANIMATION.c_str()) ; animationXML ; animationXML = animationXML->NextSiblingElement(ConstValues::ANIMATION.c_str()))
+		for(const dragonBones::XMLElement* animationXML = armatureXML->FirstChildElement(ConstValues::ANIMATION.c_str()) ; animationXML ; animationXML = animationXML->NextSiblingElement(ConstValues::ANIMATION.c_str()))
 		{
 			armatureData->addAnimationData(parseAnimationData(animationXML, armatureData, frameRate));
 		}
@@ -77,7 +77,7 @@ namespace dragonBones
 		return armatureData;
 	}
 
-	BoneData *XMLDataParser::parseBoneData(const tinyxml2::XMLElement *boneXML)
+	BoneData *XMLDataParser::parseBoneData(const dragonBones::XMLElement *boneXML)
 	{
 		BoneData *boneData = new BoneData();
 		boneData->name = boneXML->Attribute(ConstValues::A_NAME.c_str());
@@ -120,12 +120,12 @@ namespace dragonBones
 		return boneData;
 	}
 
-	SkinData *XMLDataParser::parseSkinData(const tinyxml2::XMLElement *skinXML, SkeletonData *data)
+	SkinData *XMLDataParser::parseSkinData(const dragonBones::XMLElement *skinXML, SkeletonData *data)
 	{
 		SkinData *skinData = new SkinData();
 		skinData->name = skinXML->Attribute(ConstValues::A_NAME.c_str());
 
-		for(const tinyxml2::XMLElement* slotXML = skinXML->FirstChildElement(ConstValues::SLOT.c_str()) ; slotXML ; slotXML = slotXML->NextSiblingElement(ConstValues::SLOT.c_str()))
+		for(const dragonBones::XMLElement* slotXML = skinXML->FirstChildElement(ConstValues::SLOT.c_str()) ; slotXML ; slotXML = slotXML->NextSiblingElement(ConstValues::SLOT.c_str()))
 		{
 			skinData->addSlotData(parseSlotData(slotXML, data));
 		}
@@ -133,7 +133,7 @@ namespace dragonBones
 		return skinData;
 	}
 
-	SlotData* XMLDataParser::parseSlotData(const tinyxml2::XMLElement *slotXML, SkeletonData *data)
+	SlotData* XMLDataParser::parseSlotData(const dragonBones::XMLElement *slotXML, SkeletonData *data)
 	{
 		SlotData *slotData = new SlotData();
 		slotData->name = slotXML->Attribute(ConstValues::A_NAME.c_str());
@@ -148,7 +148,7 @@ namespace dragonBones
 		{
 			slotData->blendMode = "normal";
 		}
-		for(const tinyxml2::XMLElement* displayXML = slotXML->FirstChildElement(ConstValues::DISPLAY.c_str()) ; displayXML ; displayXML = displayXML->NextSiblingElement(ConstValues::DISPLAY.c_str()))
+		for(const dragonBones::XMLElement* displayXML = slotXML->FirstChildElement(ConstValues::DISPLAY.c_str()) ; displayXML ; displayXML = displayXML->NextSiblingElement(ConstValues::DISPLAY.c_str()))
 		{
 			slotData->addDisplayData(parseDisplayData(displayXML, data));
 		}
@@ -156,7 +156,7 @@ namespace dragonBones
 		return slotData;
 	}
 
-	DisplayData *XMLDataParser::parseDisplayData(const tinyxml2::XMLElement *displayXML, SkeletonData *data)
+	DisplayData *XMLDataParser::parseDisplayData(const dragonBones::XMLElement *displayXML, SkeletonData *data)
 	{
 		DisplayData *displayData = new DisplayData();
 		displayData->name = displayXML->Attribute(ConstValues::A_NAME.c_str());
@@ -174,7 +174,7 @@ namespace dragonBones
 	}
 
 	/** @private */
-	AnimationData *XMLDataParser::parseAnimationData(const tinyxml2::XMLElement *animationXML, ArmatureData *armatureData, uint frameRate)
+	AnimationData *XMLDataParser::parseAnimationData(const dragonBones::XMLElement *animationXML, ArmatureData *armatureData, uint frameRate)
 	{
 		AnimationData *animationData = new AnimationData();
 		animationData->name = animationXML->Attribute(ConstValues::A_NAME.c_str());
@@ -196,7 +196,7 @@ namespace dragonBones
 
 		TransformTimeline *timeline = 0;
 		String timelineName;
-		for(const tinyxml2::XMLElement* timelineXML = animationXML->FirstChildElement(ConstValues::TIMELINE.c_str()) ; timelineXML ; timelineXML = timelineXML->NextSiblingElement(ConstValues::TIMELINE.c_str()))
+		for(const dragonBones::XMLElement* timelineXML = animationXML->FirstChildElement(ConstValues::TIMELINE.c_str()) ; timelineXML ; timelineXML = timelineXML->NextSiblingElement(ConstValues::TIMELINE.c_str()))
 		{
 			timeline = parseTransformTimeline(timelineXML, animationData->duration, frameRate);
 			timelineName = timelineXML->Attribute(ConstValues::A_NAME.c_str());
@@ -209,11 +209,11 @@ namespace dragonBones
 		return animationData;
 	}
 
-	void XMLDataParser::parseTimeline(const tinyxml2::XMLElement *timelineXML, Timeline *timeline, FrameParser frameParser, uint frameRate)
+	void XMLDataParser::parseTimeline(const dragonBones::XMLElement *timelineXML, Timeline *timeline, FrameParser frameParser, uint frameRate)
 	{
 		Number position = 0;
 		Frame *frame = 0;
-		for(const tinyxml2::XMLElement* frameXML = timelineXML->FirstChildElement(ConstValues::FRAME.c_str()) ; frameXML ; frameXML = frameXML->NextSiblingElement(ConstValues::FRAME.c_str()))
+		for(const dragonBones::XMLElement* frameXML = timelineXML->FirstChildElement(ConstValues::FRAME.c_str()) ; frameXML ; frameXML = frameXML->NextSiblingElement(ConstValues::FRAME.c_str()))
 		{
 			frame = frameParser(frameXML, frameRate);
 			frame->position = position;
@@ -226,7 +226,7 @@ namespace dragonBones
 		}
 	}
 
-	TransformTimeline *XMLDataParser::parseTransformTimeline(const tinyxml2::XMLElement *timelineXML, Number duration, uint frameRate)
+	TransformTimeline *XMLDataParser::parseTransformTimeline(const dragonBones::XMLElement *timelineXML, Number duration, uint frameRate)
 	{
 		TransformTimeline *timeline = new TransformTimeline();
 		timeline->duration = duration;
@@ -239,7 +239,7 @@ namespace dragonBones
 		return timeline;
 	}
 
-	void XMLDataParser::parseFrame(const tinyxml2::XMLElement *frameXML, Frame *frame, uint frameRate)
+	void XMLDataParser::parseFrame(const dragonBones::XMLElement *frameXML, Frame *frame, uint frameRate)
 	{
 		frame->duration = Number(frameXML->DoubleAttribute(ConstValues::A_DURATION.c_str())) / frameRate;
 		const char *action = frameXML->Attribute(ConstValues::A_ACTION.c_str());
@@ -259,29 +259,29 @@ namespace dragonBones
 		}
 	}
 
-	Frame *XMLDataParser::parseMainFrame(const tinyxml2::XMLElement *frameXML, uint frameRate)
+	Frame *XMLDataParser::parseMainFrame(const dragonBones::XMLElement *frameXML, uint frameRate)
 	{
 		Frame *frame = new Frame();
 		parseFrame(frameXML, frame, frameRate);
 		return frame;
 	}
 
-	Frame *XMLDataParser::parseTransformFrame(const tinyxml2::XMLElement *frameXML, uint frameRate)
+	Frame *XMLDataParser::parseTransformFrame(const dragonBones::XMLElement *frameXML, uint frameRate)
 	{
 		TransformFrame *frame = new TransformFrame();
 		parseFrame(frameXML, frame, frameRate);
 
 		frame->visible = uint(frameXML->IntAttribute(ConstValues::A_HIDE.c_str())) != 1;
 		frame->tweenEasing = Number(frameXML->DoubleAttribute(ConstValues::A_TWEEN_EASING.c_str()));
-		frame->tweenRotate = Number(frameXML->DoubleAttribute(ConstValues::A_TWEEN_ROTATE.c_str()));
-		frame->displayIndex = Number(frameXML->DoubleAttribute(ConstValues::A_DISPLAY_INDEX.c_str()));
+		frame->tweenRotate = int(frameXML->DoubleAttribute(ConstValues::A_TWEEN_ROTATE.c_str()));
+		frame->displayIndex = int(frameXML->DoubleAttribute(ConstValues::A_DISPLAY_INDEX.c_str()));
 		//
 		frame->zOrder = Number(frameXML->DoubleAttribute(ConstValues::A_Z_ORDER.c_str()));
 
 		parseTransform(frameXML->FirstChildElement(ConstValues::TRANSFORM.c_str()), &frame->global, &frame->pivot);
 		frame->transform = frame->global;
 
-		const tinyxml2::XMLElement * colorTransformXML = frameXML->FirstChildElement(ConstValues::COLOR_TRANSFORM.c_str());
+		const dragonBones::XMLElement * colorTransformXML = frameXML->FirstChildElement(ConstValues::COLOR_TRANSFORM.c_str());
 		if(colorTransformXML)
 		{
 			frame->color = new ColorTransform();
@@ -290,16 +290,16 @@ namespace dragonBones
 			frame->color->greenOffset = Number(colorTransformXML->DoubleAttribute(ConstValues::A_GREEN_OFFSET.c_str()));
 			frame->color->blueOffset = Number(colorTransformXML->DoubleAttribute(ConstValues::A_BLUE_OFFSET.c_str()));
 
-			frame->color->alphaMultiplier = Number(colorTransformXML->DoubleAttribute(ConstValues::A_ALPHA_MULTIPLIER.c_str())) * 0.01;
-			frame->color->redMultiplier = Number(colorTransformXML->DoubleAttribute(ConstValues::A_RED_MULTIPLIER.c_str())) * 0.01;
-			frame->color->greenMultiplier = Number(colorTransformXML->DoubleAttribute(ConstValues::A_GREEN_MULTIPLIER.c_str())) * 0.01;
-			frame->color->blueMultiplier = Number(colorTransformXML->DoubleAttribute(ConstValues::A_BLUE_MULTIPLIER.c_str())) * 0.01;
+			frame->color->alphaMultiplier = Number(colorTransformXML->DoubleAttribute(ConstValues::A_ALPHA_MULTIPLIER.c_str())) * 0.01f;
+			frame->color->redMultiplier = Number(colorTransformXML->DoubleAttribute(ConstValues::A_RED_MULTIPLIER.c_str())) * 0.01f;
+			frame->color->greenMultiplier = Number(colorTransformXML->DoubleAttribute(ConstValues::A_GREEN_MULTIPLIER.c_str())) * 0.01f;
+			frame->color->blueMultiplier = Number(colorTransformXML->DoubleAttribute(ConstValues::A_BLUE_MULTIPLIER.c_str())) * 0.01f;
 		}
 
 		return frame;
 	}
 
-	void XMLDataParser::parseTransform(const tinyxml2::XMLElement *transformXML, DBTransform *transform, Point *pivot)
+	void XMLDataParser::parseTransform(const dragonBones::XMLElement *transformXML, DBTransform *transform, Point *pivot)
 	{
 		if(transformXML)
 		{

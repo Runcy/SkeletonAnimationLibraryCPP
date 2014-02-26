@@ -311,13 +311,13 @@ namespace dragonBones
 				{
 					_pauseBeforeFadeInCompleteState = 0;
 					progress = 0;
-					currentLoopCount = progress;
+					currentLoopCount = (int)progress;
 				}
 				else
 				{
 					progress = _currentTime / _totalTime;
 					//update loopCount
-					currentLoopCount = progress;
+					currentLoopCount = (int)progress;
 					if(currentLoopCount != _loopCount)
 					{
 						if(_loopCount == -1)

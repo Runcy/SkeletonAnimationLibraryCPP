@@ -55,7 +55,7 @@ public:
 	bool initWithTextureAtlas(CCTextureAtlas* textureAtlas , unsigned int quadIndex , const CCRect &sourceRect);
 	
 
-    virtual void draw(NodeVisitor *visitor = 0);
+    virtual void draw();
 
     // CC Texture protocol
 

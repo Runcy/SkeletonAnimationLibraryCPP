@@ -1,10 +1,11 @@
 
 #include "TransformUtil.h"
+#include "Matrix.h"
 namespace dragonBones
 {
 
 		const Number TransformUtil::PI = 3.14159265f;
-		const Number TransformUtil::HALF_PI = TransformUtil::PI * 0.5;
+		const Number TransformUtil::HALF_PI = TransformUtil::PI * 0.5f;
 		const Number TransformUtil::DOUBLE_PI = TransformUtil::PI * 2;		
 		Matrix _helpMatrix;
 
@@ -21,7 +22,7 @@ namespace dragonBones
 		void TransformUtil::transformPointWithParent(DBTransform &transform, DBTransform &parent)
 		{
 			transformToMatrix(parent, _helpMatrix);
-			_helpMatrix = CCAffineTransformInvert(_helpMatrix);
+			_helpMatrix = MatrixInvert(_helpMatrix);
 
 			Number x = transform.x;
 			Number y = transform.y;

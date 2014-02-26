@@ -10,7 +10,7 @@ namespace dragonBones
 	const String BytesType::BLANK;
 	Number round(Number x)
 	{
-		return ((int)(x + 0.5));
+		return Number((int)(x + 0.5f));
 	}
 
 	bool isNaN( Number num )

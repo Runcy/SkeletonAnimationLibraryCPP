@@ -3,6 +3,7 @@
 #include "ITextureAtlas.h"
 #include "DBTransform.h"
 #include "textures/CCTextureAtlas.h"
+#include "Matrix.h"
 namespace dragonBones
 {
 	class DisplayObject;

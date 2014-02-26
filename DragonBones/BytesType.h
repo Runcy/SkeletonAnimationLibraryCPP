@@ -4,7 +4,6 @@
 #include <vector>
 #include <string>
 #include <algorithm>
-#include "cocoa/CCAffineTransform.h"
 
 namespace dragonBones
 {
@@ -12,7 +11,6 @@ namespace dragonBones
 	typedef std::string String;
 	typedef unsigned int uint;
 	typedef float Number;
-	typedef cocos2d::CCAffineTransform Matrix;
 	static Number Infinite = FLT_MAX;
 	Number round(Number x);
 

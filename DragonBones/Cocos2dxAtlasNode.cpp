@@ -99,7 +99,7 @@ bool Cocos2dxAtlasNode::initWithTextureAtlas( CCTextureAtlas* textureAtlas , uns
 }
 
 // Cocos2dxAtlasNode - draw
-void Cocos2dxAtlasNode::draw(NodeVisitor *visitor)
+void Cocos2dxAtlasNode::draw()
 {
     CC_NODE_DRAW_SETUP();
 

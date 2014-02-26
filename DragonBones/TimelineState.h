@@ -29,7 +29,7 @@ namespace dragonBones
 			Number valueEase;
 			if (easing > 1)
 			{
-				valueEase = 0.5 * (1 - cos(value * TransformUtil::PI )) - value;
+				valueEase = 0.5f * (1 - cos(value * TransformUtil::PI )) - value;
 				easing -= 1;
 			}
 			else if (easing > 0)

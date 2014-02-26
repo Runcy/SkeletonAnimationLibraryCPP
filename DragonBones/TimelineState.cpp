@@ -134,7 +134,7 @@ namespace dragonBones
 					}
 					
 					progress += _timeline->offset;
-					int loopCount = progress;
+					int loopCount = (int)progress;
 					progress -= loopCount;
 					
 					//
