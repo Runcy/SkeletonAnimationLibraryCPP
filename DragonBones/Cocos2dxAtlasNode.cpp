@@ -32,70 +32,70 @@ Cocos2dxAtlasNode::~Cocos2dxAtlasNode()
 
 Cocos2dxAtlasNode * Cocos2dxAtlasNode::create(CCTextureAtlas* textureAtlas , unsigned int quadIndex , const CCRect &sourceRect)
 {
-	Cocos2dxAtlasNode * pRet = new Cocos2dxAtlasNode();
-	if (pRet->initWithTextureAtlas(textureAtlas , quadIndex , sourceRect))
-	{
-		pRet->autorelease();
-		return pRet;
-	}
-	CC_SAFE_DELETE(pRet);
-	return NULL;
+    Cocos2dxAtlasNode * pRet = new Cocos2dxAtlasNode();
+    if (pRet->initWithTextureAtlas(textureAtlas , quadIndex , sourceRect))
+    {
+        pRet->autorelease();
+        return pRet;
+    }
+    CC_SAFE_DELETE(pRet);
+    return NULL;
 }
 
 bool Cocos2dxAtlasNode::initWithTextureAtlas( CCTextureAtlas* textureAtlas , unsigned int quadIndex , const CCRect &sourceRect)
 {
-	m_nQuadIndex = quadIndex;
+    m_nQuadIndex = quadIndex;
 
-	m_tColorUnmodified = ccWHITE;
-	m_bIsOpacityModifyRGB = true;
+    m_tColorUnmodified = ccWHITE;
+    m_bIsOpacityModifyRGB = true;
 
-	m_tBlendFunc.src = CC_BLEND_SRC;
-	m_tBlendFunc.dst = CC_BLEND_DST;
+    m_tBlendFunc.src = CC_BLEND_SRC;
+    m_tBlendFunc.dst = CC_BLEND_DST;
 
-	m_pTextureAtlas = textureAtlas;
+    m_pTextureAtlas = textureAtlas;
 
-	if (! m_pTextureAtlas)
-	{
-		CCLOG("cocos2d: Could not initialize Cocos2dxAtlasNode. Invalid Texture.");
-		return false;
-	}
-	m_pTextureAtlas->retain();
+    if (! m_pTextureAtlas)
+    {
+        CCLOG("cocos2d: Could not initialize Cocos2dxAtlasNode. Invalid Texture.");
+        return false;
+    }
+    m_pTextureAtlas->retain();
 
-	this->updateBlendFunc();
-	this->updateOpacityModifyRGB();
-
-
-	// shader stuff
-	setShaderProgram(CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTexture_uColor));
-	m_nUniformColor = glGetUniformLocation( getShaderProgram()->getProgram(), "u_color");
+    this->updateBlendFunc();
+    this->updateOpacityModifyRGB();
 
 
-	// 更新顶点数据
-	cocos2d::ccV3F_C4B_T2F_Quad & quad = textureAtlas->getQuads()[quadIndex];
+    // shader stuff
+    setShaderProgram(CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTexture_uColor));
+    m_nUniformColor = glGetUniformLocation( getShaderProgram()->getProgram(), "u_color");
 
-	quad.bl.vertices.x = sourceRect.getMinX();
-	quad.bl.vertices.y = sourceRect.getMaxY();
-	quad.bl.vertices.z = 0;
-	quad.br.vertices.x = sourceRect.getMinX();
-	quad.br.vertices.y = sourceRect.getMinY();
-	quad.br.vertices.z = 0;
-	quad.tl.vertices.x = sourceRect.getMaxX();
-	quad.tl.vertices.y = sourceRect.getMaxY();
-	quad.tl.vertices.z = 0;
-	quad.tr.vertices.x = sourceRect.getMaxX();
-	quad.tr.vertices.y = sourceRect.getMinY();
-	quad.tr.vertices.z = 0;
 
-	//*(cocos2d::CCPoint*)&quad.bl.vertices = CCPointApplyAffineTransform(*(cocos2d::CCPoint*)&(quad.bl.vertices), matrix);
-	//*(cocos2d::CCPoint*)&quad.br.vertices = CCPointApplyAffineTransform(*(cocos2d::CCPoint*)&(quad.br.vertices), matrix);
-	//*(cocos2d::CCPoint*)&quad.tl.vertices = CCPointApplyAffineTransform(*(cocos2d::CCPoint*)&(quad.tl.vertices), matrix);
-	//*(cocos2d::CCPoint*)&quad.tr.vertices = CCPointApplyAffineTransform(*(cocos2d::CCPoint*)&(quad.tr.vertices), matrix);
+    // 更新顶点数据
+    cocos2d::ccV3F_C4B_T2F_Quad & quad = textureAtlas->getQuads()[quadIndex];
 
-	//quad.bl.vertices.y = -quad.bl.vertices.y;
-	//quad.br.vertices.y = -quad.br.vertices.y;
-	//quad.tl.vertices.y = -quad.tl.vertices.y;
-	//quad.tr.vertices.y = -quad.tr.vertices.y;
-	return true;
+    quad.bl.vertices.x = sourceRect.getMinX();
+    quad.bl.vertices.y = sourceRect.getMaxY();
+    quad.bl.vertices.z = 0;
+    quad.br.vertices.x = sourceRect.getMinX();
+    quad.br.vertices.y = sourceRect.getMinY();
+    quad.br.vertices.z = 0;
+    quad.tl.vertices.x = sourceRect.getMaxX();
+    quad.tl.vertices.y = sourceRect.getMaxY();
+    quad.tl.vertices.z = 0;
+    quad.tr.vertices.x = sourceRect.getMaxX();
+    quad.tr.vertices.y = sourceRect.getMinY();
+    quad.tr.vertices.z = 0;
+
+    //*(cocos2d::CCPoint*)&quad.bl.vertices = CCPointApplyAffineTransform(*(cocos2d::CCPoint*)&(quad.bl.vertices), matrix);
+    //*(cocos2d::CCPoint*)&quad.br.vertices = CCPointApplyAffineTransform(*(cocos2d::CCPoint*)&(quad.br.vertices), matrix);
+    //*(cocos2d::CCPoint*)&quad.tl.vertices = CCPointApplyAffineTransform(*(cocos2d::CCPoint*)&(quad.tl.vertices), matrix);
+    //*(cocos2d::CCPoint*)&quad.tr.vertices = CCPointApplyAffineTransform(*(cocos2d::CCPoint*)&(quad.tr.vertices), matrix);
+
+    //quad.bl.vertices.y = -quad.bl.vertices.y;
+    //quad.br.vertices.y = -quad.br.vertices.y;
+    //quad.tl.vertices.y = -quad.tl.vertices.y;
+    //quad.tr.vertices.y = -quad.tr.vertices.y;
+    return true;
 }
 
 // Cocos2dxAtlasNode - draw

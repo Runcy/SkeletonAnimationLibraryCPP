@@ -28,7 +28,7 @@ All features from CCNode are valid, plus the following features:
 class Cocos2dxAtlasNode : public CCNodeRGBA, public CCTextureProtocol , public dragonBones::Object
 {
 protected:
-	
+    
     ccColor3B    m_tColorUnmodified;
 
     CC_PROPERTY(CCTextureAtlas*, m_pTextureAtlas, TextureAtlas);
@@ -43,17 +43,17 @@ protected:
     // This varible is only used for CCLabelAtlas FPS display. So plz don't modify its value.
     bool m_bIgnoreContentScaleFactor;
 
-	// 要画哪个矩形
-	unsigned int m_nQuadIndex;
+    // 要画哪个矩形
+    unsigned int m_nQuadIndex;
     
 public:
     Cocos2dxAtlasNode();
     virtual ~Cocos2dxAtlasNode();
 
-	/** creates a Cocos2dxAtlasNode  with an Atlas file the width and height of each item and the quantity of items to render*/
-	static Cocos2dxAtlasNode * create(CCTextureAtlas* textureAtlas , unsigned int quadIndex , const CCRect &sourceRect);
-	bool initWithTextureAtlas(CCTextureAtlas* textureAtlas , unsigned int quadIndex , const CCRect &sourceRect);
-	
+    /** creates a Cocos2dxAtlasNode  with an Atlas file the width and height of each item and the quantity of items to render*/
+    static Cocos2dxAtlasNode * create(CCTextureAtlas* textureAtlas , unsigned int quadIndex , const CCRect &sourceRect);
+    bool initWithTextureAtlas(CCTextureAtlas* textureAtlas , unsigned int quadIndex , const CCRect &sourceRect);
+    
 
     virtual void draw();
 
