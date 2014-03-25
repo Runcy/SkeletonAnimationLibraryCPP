@@ -1,5 +1,6 @@
 #include "DBObject.h"
 #include "Armature.h"
+#include <cmath>
 namespace dragonBones
 {    
     DBObject::DBObject()

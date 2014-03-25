@@ -3,6 +3,7 @@
 #include "ITextureAtlas.h"
 #include "Armature.h"
 #include "Animation.h"
+#include <stdexcept>
 namespace dragonBones
 {    
 
@@ -84,12 +85,12 @@ namespace dragonBones
     {
         if(!data)
         {
-            throw std::exception("data is null");
+            throw std::invalid_argument("data is null");
         }
         String newname = name.empty() ? data->name : name;
         if(newname.empty())
         {
-            throw std::exception("Unnamed data!");
+            throw std::invalid_argument("Unnamed data!");
         }
         _dataDic[newname] = data;
     }
@@ -146,7 +147,7 @@ namespace dragonBones
     {
         if(!textureAtlas)
         {
-            throw std::exception("textureAtlas is null");
+            throw std::invalid_argument("textureAtlas is null");
         }
         String newname = name;
         if(newname.empty())
@@ -155,7 +156,7 @@ namespace dragonBones
         }
         if(newname.empty())
         {
-            throw std::exception("Unnamed data!");
+            throw std::invalid_argument("Unnamed data!");
         }
         _textureAtlasDic[newname] = textureAtlas;
     }

@@ -9,6 +9,7 @@
 #include "FrameEvent.h"
 #include "SoundEvent.h"
 #include "SoundEventManager.h"
+#include <stdexcept>
 namespace dragonBones
 {
         /**
@@ -93,7 +94,7 @@ namespace dragonBones
         {
             if(!child)
             {
-                throw std::exception("child is null");
+                throw std::invalid_argument("child is null");
             }
             if(child == this)
             {
@@ -111,12 +112,12 @@ namespace dragonBones
         {
             if(!child)
             {
-                throw std::exception("child is null");
+                throw std::invalid_argument("child is null");
             }
             
             if(child == this || (dynamic_cast<Bone*>(child) && static_cast<Bone*>(child)->contains(this)))
             {
-                throw std::exception("An Bone cannot be added as a child to itself or one of its children (or children's children, etc.)");
+                throw std::invalid_argument("An Bone cannot be added as a child to itself or one of its children (or children's children, etc.)");
             }
             
             if(child->parent)
@@ -137,7 +138,7 @@ namespace dragonBones
         {
             if(!child)
             {
-                throw std::exception("child is null");
+                throw std::invalid_argument("child is null");
             }
             
             int index = indexOf(_children , child);
@@ -154,7 +155,7 @@ namespace dragonBones
             }
             else
             {
-                throw std::exception("child not found");
+                throw std::invalid_argument("child not found");
             }
         }
         

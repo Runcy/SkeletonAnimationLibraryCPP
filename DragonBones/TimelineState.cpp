@@ -1,4 +1,3 @@
-#pragma once
 #include "TimelineState.h"
 #include "TransformTimeline.h"
 #include "Bone.h"

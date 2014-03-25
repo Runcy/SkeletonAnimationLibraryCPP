@@ -1,8 +1,8 @@
-
 #include "XMLDataParser.h"
 #include "ConstValues.h"
 #include "DragonBones.h"
 #include "DBDataUtil.h"
+#include <stdexcept>
 namespace dragonBones
 {    
 
@@ -36,7 +36,7 @@ namespace dragonBones
         String version = rootElement->Attribute(ConstValues::A_VERSION.c_str());
         if(version != DragonBones::DATA_VERSION)
         {
-            throw std::exception("Nonsupport version!");
+            throw std::invalid_argument("Nonsupport version!");
         }
 
         uint frameRate = rootElement->IntAttribute(ConstValues::A_FRAME_RATE.c_str());

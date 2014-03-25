@@ -4,6 +4,7 @@
 #include "Armature.h"
 #include "Animation.h"
 #include "AnimationEvent.h"
+#include <stdexcept>
 namespace dragonBones
 {
 
@@ -228,7 +229,8 @@ namespace dragonBones
             }
             else
             {
-                throw std::exception("argument error");
+                // TODO(hejiangzhou): Shall we disable exception?
+                throw std::invalid_argument("argument error");
             }
         }
         

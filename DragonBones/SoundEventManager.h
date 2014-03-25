@@ -2,6 +2,7 @@
 #define __SOUND_EVENT_MANAGER_H__
 #include "preDB.h"
 #include "Event.h"
+#include <stdexcept>
 namespace dragonBones
 {
     //[Event(name="sound",type="dragonBones.events.SoundEvent")]
@@ -28,7 +29,7 @@ namespace dragonBones
         {
             if (_instance)
             {
-                throw std::exception("Singleton already constructed!");
+                throw std::invalid_argument("Singleton already constructed!");
             }
         }
     };

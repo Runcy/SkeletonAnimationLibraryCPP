@@ -7,6 +7,7 @@
 #include "FrameEvent.h"
 #include "SoundEvent.h"
 #include "SoundEventManager.h"
+#include <stdexcept>
 namespace dragonBones
 {
         /**
@@ -237,7 +238,7 @@ namespace dragonBones
         {
             if(!slot)
             {
-                throw std::exception("slot is null");
+                throw std::invalid_argument("slot is null");
             }
             
             if(indexOf(_slotList , slot) >= 0)
@@ -246,7 +247,7 @@ namespace dragonBones
             }
             else
             {
-                throw std::exception("slot not found");
+                throw std::invalid_argument("slot not found");
             }
         }
         
@@ -309,7 +310,7 @@ namespace dragonBones
         {
             if(!bone)
             {
-                throw std::exception("bone is null");
+                throw std::invalid_argument("bone is null");
             }
             
             if(indexOf(_boneList , bone) >= 0)
@@ -325,7 +326,7 @@ namespace dragonBones
             }
             else
             {
-                throw std::exception("bone not found");
+                throw std::invalid_argument("bone not found");
             }
         }
         
@@ -359,7 +360,7 @@ namespace dragonBones
         {
             if(!object)
             {
-                throw std::exception("object is null");
+                throw std::invalid_argument("object is null");
             }
             
             if(!parentName.empty())
@@ -371,7 +372,7 @@ namespace dragonBones
                 }
                 else
                 {
-                    throw std::exception("parentName bone not found");
+                    throw std::invalid_argument("parentName bone not found");
                 }
             }
             else

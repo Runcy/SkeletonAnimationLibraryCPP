@@ -5,6 +5,7 @@
 #include "DBTransform.h"
 #include "TransformUtil.h"
 #include "ColorTransform.h"
+#include <cmath>
 namespace dragonBones
 {
     class Bone;
