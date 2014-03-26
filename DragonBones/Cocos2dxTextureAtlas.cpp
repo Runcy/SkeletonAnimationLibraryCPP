@@ -17,20 +17,20 @@ namespace dragonBones
         uint index = 0;
         for(TextureAtlasData::Rects::iterator iter = _textureAtlasRawData->rects.begin(); iter != _textureAtlasRawData->rects.end() ; iter ++)
         {
-            const Rectangle &rect = iter->second;
-            float left    = rect.x/(float)atlasWidth;
-            float right    = (rect.x + rect.width) / (float)atlasWidth;
-            float bottom        = rect.y/(float)atlasHeight;
-            float top    = (rect.y + rect.height) / (float)atlasHeight;
-
-            quad.bl.texCoords.u = left;
-            quad.bl.texCoords.v = top;
-            quad.br.texCoords.u = left;
-            quad.br.texCoords.v = bottom;
-            quad.tl.texCoords.u = right;
-            quad.tl.texCoords.v = top;
-            quad.tr.texCoords.u = right;
-            quad.tr.texCoords.v = bottom;
+			const Rectangle &rect = iter->second;
+			float left    = rect.x/(float)atlasWidth;
+			float right   = (rect.x + rect.width) / (float)atlasWidth;
+			float top     = rect.y/(float)atlasHeight;
+			float bottom  = (rect.y + rect.height) / (float)atlasHeight;
+			
+			quad.bl.texCoords.u = left;
+			quad.bl.texCoords.v = bottom;
+			quad.br.texCoords.u = right;
+			quad.br.texCoords.v = bottom;
+			quad.tl.texCoords.u = left;
+			quad.tl.texCoords.v = top;
+			quad.tr.texCoords.u = right;
+			quad.tr.texCoords.v = top;
 
             quad.bl.colors = cocos2d::ccc4(255,255,255,255);
             quad.br.colors = cocos2d::ccc4(255,255,255,255);
