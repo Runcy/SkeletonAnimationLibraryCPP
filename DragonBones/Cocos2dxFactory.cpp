@@ -88,7 +88,7 @@ namespace dragonBones
 
             cocos2d::Cocos2dxAtlasNode *atlasNode = cocos2d::Cocos2dxAtlasNode::create(ccTextureAtlas->getTextureAtlas() , ccTextureAtlas->getQuadIndex(fullName) , rect);
             atlasNode->setCascadeOpacityEnabled(true);
-            atlasNode->setAnchorPoint(cocos2d::CCPoint(pivotX / (Number)region.width , pivotY / (Number)region.height));
+            atlasNode->setAnchorPoint(cocos2d::CCPoint(pivotX / (Number)region.width , (region.height-pivotY) / (Number)region.height));
             atlasNode->setContentSize(cocos2d::CCSize(region.width , region.height));
             return new CocosNode(atlasNode);
             //static_cast<cocos2d::CCLayerColor*>(node->node)->initWithColor(cocos2d::ccc4(255,0,0,255) , 100 , 100);
