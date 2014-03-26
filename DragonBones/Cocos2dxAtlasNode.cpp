@@ -70,21 +70,22 @@ bool Cocos2dxAtlasNode::initWithTextureAtlas( CCTextureAtlas* textureAtlas , uns
     m_nUniformColor = glGetUniformLocation( getShaderProgram()->getProgram(), "u_color");
 
 
-    // ¸üÐÂ¶¥µãÊý¾Ý
+    // ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     cocos2d::ccV3F_C4B_T2F_Quad & quad = textureAtlas->getQuads()[quadIndex];
 
     quad.bl.vertices.x = sourceRect.getMinX();
-    quad.bl.vertices.y = sourceRect.getMaxY();
-    quad.bl.vertices.z = 0;
-    quad.br.vertices.x = sourceRect.getMinX();
-    quad.br.vertices.y = sourceRect.getMinY();
-    quad.br.vertices.z = 0;
-    quad.tl.vertices.x = sourceRect.getMaxX();
-    quad.tl.vertices.y = sourceRect.getMaxY();
-    quad.tl.vertices.z = 0;
-    quad.tr.vertices.x = sourceRect.getMaxX();
-    quad.tr.vertices.y = sourceRect.getMinY();
-    quad.tr.vertices.z = 0;
+	quad.bl.vertices.y = sourceRect.getMinY();
+	quad.bl.vertices.z = 0;
+	quad.br.vertices.x = sourceRect.getMaxX();
+	quad.br.vertices.y = sourceRect.getMinY();
+	quad.br.vertices.z = 0;
+	quad.tl.vertices.x = sourceRect.getMinX();
+	quad.tl.vertices.y = sourceRect.getMaxY();
+	quad.tl.vertices.z = 0;
+	quad.tr.vertices.x = sourceRect.getMaxX();
+	quad.tr.vertices.y = sourceRect.getMaxY();
+	quad.tr.vertices.z = 0;
+
 
     //*(cocos2d::CCPoint*)&quad.bl.vertices = CCPointApplyAffineTransform(*(cocos2d::CCPoint*)&(quad.bl.vertices), matrix);
     //*(cocos2d::CCPoint*)&quad.br.vertices = CCPointApplyAffineTransform(*(cocos2d::CCPoint*)&(quad.br.vertices), matrix);
