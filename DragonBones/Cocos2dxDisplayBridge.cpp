@@ -57,7 +57,7 @@ namespace dragonBones
             if(mDisplayNode)
             {
                 cocos2d::CCNode *n = mDisplayNode->node;
-                n->setPosition(transform.x , -transform.y);
+                n->setPosition(matrix.tx , -matrix.ty);
                 n->setScaleX(transform.scaleX);
                 n->setScaleY(-transform.scaleY);
                 n->setRotationX(CC_RADIANS_TO_DEGREES(transform.skewX));
