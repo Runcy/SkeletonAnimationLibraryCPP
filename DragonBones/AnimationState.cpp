@@ -494,11 +494,17 @@ namespace dragonBones
         {
             if(!_mixingTransforms.empty())
             {
-                for(std::map<String , TimelineState*>::iterator iter = _timelineStates.begin() ; iter != _timelineStates.end() ; iter ++)
+                for(std::map<String , TimelineState*>::iterator iter = _timelineStates.begin() ; iter != _timelineStates.end() ; )
                 {
                     if(_mixingTransforms.find(iter->first) == _mixingTransforms.end())
                     {
-                        removeTimelineState(iter->first);
+                        if(iter != _timelineStates.end())
+                        {
+                            TimelineState::returnObject(static_cast<TimelineState*>(iter->second));
+                            iter = _timelineStates.erase(iter);
+                        }else{
+                            iter++;
+                        }
                     }
                 }
                 
@@ -551,9 +557,15 @@ namespace dragonBones
             _clip = 0;
             _mixingTransforms.clear();
             
-            for(std::map<String , TimelineState*>::iterator iter = _timelineStates.begin() ; iter != _timelineStates.end() ; iter ++)
+            for(std::map<String , TimelineState*>::iterator iter = _timelineStates.begin() ; iter != _timelineStates.end() ; )
             {
-                removeTimelineState(iter->first);
+                if(iter != _timelineStates.end())
+                {
+                    TimelineState::returnObject(static_cast<TimelineState*>(iter->second));
+                    iter = _timelineStates.erase(iter);
+                }else{
+                    iter++;
+                }
             }
         }
 }
